@@ -9,6 +9,10 @@ impl Model {
         Self(val)
     }
 
+    pub fn empty() -> Self {
+        Self(Map::new())
+    }
+
     pub fn insert(self, key: String, val: Value) -> Self {
         let mut value = self.0;
         let mut it = key.split(ACCESS_TOKEN).peekable();
