@@ -1,9 +1,9 @@
-use plugin::PluginType;
+use nmlugin::PluginType;
 
 pub mod attribute;
 pub mod html;
 pub mod model;
-pub mod plugin;
+pub mod nmlugin;
 
 #[repr(C)]
 #[derive(Debug, Clone, PartialEq, Eq)]

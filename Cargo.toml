@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.86"
+libloading = "0.8.5"
 semver = "1.0.23"
 serde_json = "1.0.120"
 url = "2.5.2"

@@ -1,3 +1,5 @@
+use crate::{html::Html, model::Model, Location, Msg};
+
 use anyhow::{Context, Result};
 use semver::{Version, VersionReq};
 use url::Url;
@@ -42,3 +44,7 @@ impl Dependency {
         })
     }
 }
+
+pub type FnInit = unsafe extern "C" fn(Model) -> Model;
+pub type FnUpdate = unsafe extern "C" fn(Msg, Model) -> Model;
+pub type FnView = unsafe extern "C" fn(Msg, Model) -> *mut Vec<(Html, Location)>;
