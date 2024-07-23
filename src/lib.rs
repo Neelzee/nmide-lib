@@ -1,10 +1,18 @@
+use plugin::PluginType;
+
 pub mod attribute;
 pub mod html;
 pub mod model;
+pub mod plugin;
 
+#[repr(C)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Msg {
     OnStart,
+    OnLoad {
+        pl_type: PluginType,
+        name: String,
+    },
     /// All `PluginMsg`'s are in lowercase
     PluginMsg(String),
 }
@@ -16,12 +24,18 @@ impl Msg {
     }
 }
 
+#[repr(C)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Location(String);
 
 impl Location {
     pub fn new(s: impl Into<String>) -> Self {
         let str: String = s.into();
         Self(str.to_lowercase())
+    }
+
+    pub fn to_string(self) -> String {
+        self.0
     }
 }
 

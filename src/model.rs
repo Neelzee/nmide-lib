@@ -1,7 +1,10 @@
 use serde_json::{Map, Value};
 
+use crate::Location;
+
 pub const ACCESS_TOKEN: &str = ".";
 
+#[repr(C)]
 pub struct Model(Map<String, Value>);
 
 impl Model {
@@ -11,6 +14,27 @@ impl Model {
 
     pub fn empty() -> Self {
         Self(Map::new())
+    }
+
+    pub fn add_location(self, location: Location) -> Self {
+        let key = location.to_string();
+
+        self.push_to_array(key.clone(), Value::String(key))
+    }
+
+    pub fn push_to_array(self, key: impl Into<String>, val: Value) -> Self {
+        let str_key: String = key.into();
+        match self.0.get(&str_key) {
+            Some(Value::Array(arr)) => {
+                let mut arrs = arr.clone();
+                let mut map = self.0;
+                arrs.push(val);
+                map.insert(str_key, Value::Array(arrs.to_vec()));
+
+                Model::new(map)
+            }
+            _ => self,
+        }
     }
 
     pub fn insert(self, key: impl Into<String>, val: Value) -> Self {
