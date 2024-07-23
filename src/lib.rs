@@ -4,6 +4,7 @@ pub mod attribute;
 pub mod html;
 pub mod model;
 pub mod nmlugin;
+mod tests;
 
 #[repr(C)]
 #[derive(Debug, Clone, PartialEq, Eq)]
