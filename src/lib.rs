@@ -2,7 +2,19 @@ pub mod attribute;
 pub mod html;
 pub mod model;
 
-pub enum Msg {}
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Msg {
+    OnStart,
+    /// All `PluginMsg`'s are in lowercase
+    PluginMsg(String),
+}
+
+impl Msg {
+    pub fn plugin_msg(s: impl Into<String>) -> Self {
+        let msg: String = s.into();
+        Self::PluginMsg(msg.to_lowercase())
+    }
+}
 
 pub struct Location(String);
 
