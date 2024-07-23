@@ -13,9 +13,10 @@ impl Model {
         Self(Map::new())
     }
 
-    pub fn insert(self, key: String, val: Value) -> Self {
+    pub fn insert(self, key: impl Into<String>, val: Value) -> Self {
         let mut value = self.0;
-        let mut it = key.split(ACCESS_TOKEN).peekable();
+        let str_key: String = key.into();
+        let mut it = str_key.split(ACCESS_TOKEN).peekable();
         while let Some(k) = it.next() {
             match value.get(k) {
                 Some(Value::Object(m)) => value = m.clone(),
@@ -35,9 +36,10 @@ impl Model {
         Self(value)
     }
 
-    pub fn remove(self, key: String) -> Self {
+    pub fn remove(self, key: impl Into<String>) -> Self {
         let mut value = self.0;
-        let mut it = key.split(ACCESS_TOKEN).peekable();
+        let str_key: String = key.into();
+        let mut it = str_key.split(ACCESS_TOKEN).peekable();
         while let Some(k) = it.next() {
             // Is on the last iteration
             if it.peek().is_none() {
